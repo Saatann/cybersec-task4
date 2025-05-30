@@ -1,0 +1,43 @@
+Firewall Configuration and Testing Steps (Windows)
+
+1. Open Windows Firewall:
+   - Press Win + R
+   - Type: wf.msc
+   - Hit Enter to open "Windows Defender Firewall with Advanced Security"
+
+2. View Existing Rules:
+   - In the left pane, click "Inbound Rules"
+   - Observed existing rules before changes
+
+3. Block Inbound Traffic on Port 23 (Telnet):
+   - Click "New Rule..." in the right-hand pane
+   - Select: Port > TCP > Specific local port: 23
+   - Action: Block the connection
+   - Profile: Apply to all (Domain, Private, Public)
+   - Name: Block Telnet Port 23
+   - Result: Inbound TCP traffic on port 23 is now blocked
+
+4. Test the Rule:
+   - Enabled Telnet Client:
+     Control Panel > Programs > Turn Windows features on/off > Checked "Telnet Client" > OK
+   - Open Command Prompt
+     Ran: telnet localhost 23
+   - Output: "Could not open connection" (blocked as expected)
+
+5. Allow SSH (Port 22):
+   - Click "New Rule..."
+   - Select: Port > TCP > Specific local port: 22
+   - Action: Allow the connection
+   - Profile: Apply to all
+   - Name: Allow SSH Port 22
+
+6. Restore Original State:
+   - Deleted "Block Telnet Port 23" rule
+   - Deleted "Allow SSH Port 22" rule
+   - Disabled Telnet Client:
+     Control Panel > Programs > Turn Windows features on/off > Unchecked "Telnet Client" > OK
+
+7. Summary:
+   - Successfully demonstrated how to block and allow traffic using Windows Firewall
+   - Verified rules by testing Telnet connections
+   - Restored system and firewall to original state
